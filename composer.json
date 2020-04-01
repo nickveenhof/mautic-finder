@@ -1,12 +1,16 @@
 {
-    "name": "webflo/drupal-finder",
-    "description": "Helper class to locate a Drupal installation from a given path.",
+    "name": "nickveenhof/mautic-finder",
+    "description": "Helper class to locate a Mautic installation from a given path.",
     "license": "GPL-2.0+",
     "type": "library",
     "authors": [
         {
             "name": "Florian Weber",
             "email": "florian@webflo.org"
+        },
+        {
+            "name": "Nick Veenhof",
+            "email": "nick.veenhof@gmail.com"
         }
     ],
     "require": {
@@ -14,12 +18,12 @@
     },
     "autoload": {
         "classmap": [
-            "src/DrupalFinder.php"
+            "src/MauticFinder.php"
         ]
     },
     "autoload-dev": {
         "psr-4": {
-            "DrupalFinder\\Tests\\": "tests/"
+            "MauticFinder\\Tests\\": "tests/"
         }
     },
     "require-dev": {

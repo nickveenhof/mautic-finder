@@ -1,24 +1,19 @@
-# Drupal Finder
+# Mautic Finder
 
-[![Travis](https://img.shields.io/travis/webflo/drupal-finder.svg)](https://travis-ci.org/webflo/drupal-finder) [![Packagist](https://img.shields.io/packagist/v/webflo/drupal-finder.svg)](https://packagist.org/packages/webflo/drupal-finder)
+[![Travis](https://img.shields.io/travis/nickveenhof/mautic-finder.svg)](https://travis-ci.org/nickveenhof/mautic-finder) [![Packagist](https://img.shields.io/packagist/v/nickveenhof/mautic-finder.svg)](https://packagist.org/packages/nickveenhof/mautic-finder)
 
-Drupal Finder provides a class to locate a Drupal installation in a given path.
+Mautic Finder provides a class to locate a Mautic installation in a given path.
 
 ## Usage
 
 ```PHP
-$drupalFinder = new \DrupalFinder\DrupalFinder();
-if ($drupalFinder->locateRoot(getcwd())) {
-    $drupalRoot = $drupalFinder->getDrupalRoot();
-    $composerRoot = $drupalFinder->getComposerRoot();
+$mauticFinder = new \MauticFinder\MauticFinder();
+if ($mauticFinder->locateRoot(getcwd())) {
+    $mauticRoot = $mauticFinder->getMauticRoot();
+    $composerRoot = $mauticFinder->getComposerRoot();
     ...
 }
 ```
-
-## Examples
-
-- [Drupal Console Launcher](https://github.com/hechoendrupal/drupal-console-launcher)
-- [Drush Launcher](https://github.com/drush-ops/drush-launcher)
 
 ## License
 

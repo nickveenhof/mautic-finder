@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true">
   <testsuites>
-    <testsuite name="DrupalFinder Test Suite">
+    <testsuite name="MauticFinder Test Suite">
       <directory>./tests</directory>
     </testsuite>
   </testsuites>

@@ -2,22 +2,22 @@
 
 /**
  * @file
- * Contains \DrupalFinder\DrupalFinder.
+ * Contains \MauticFinder\MauticFinder.
  */
 
-namespace DrupalFinder;
+namespace MauticFinder;
 
-class DrupalFinder
+class MauticFinder
 {
     /**
-     * Drupal web public directory.
+     * Mautic web public directory.
      *
      * @var string
      */
-    private $drupalRoot;
+    private $mauticRoot;
 
     /**
-     * Drupal package composer directory.
+     * Mautic package composer directory.
      *
      * @var bool
      */
@@ -34,7 +34,7 @@ class DrupalFinder
 
     public function locateRoot($start_path)
     {
-        $this->drupalRoot = false;
+        $this->mauticRoot = false;
         $this->composerRoot = false;
         $this->vendorDir = false;
 
@@ -85,18 +85,6 @@ class DrupalFinder
      */
     protected function isValidRoot($path)
     {
-        if (!empty($path) && is_dir($path) && file_exists($path . '/autoload.php') && file_exists($path . '/' . $this->getComposerFileName())) {
-            // Additional check for the presence of core/composer.json to
-            // grant it is not a Drupal 7 site with a base folder named "core".
-            $candidate = 'core/includes/common.inc';
-            if (file_exists($path . '/' . $candidate) && file_exists($path . '/core/core.services.yml')) {
-                if (file_exists($path . '/core/misc/drupal.js') || file_exists($path . '/core/assets/js/drupal.js')) {
-                    $this->composerRoot = $path;
-                    $this->drupalRoot = $path;
-                    $this->vendorDir = $this->composerRoot . '/vendor';
-                }
-            }
-        }
         if (!empty($path) && is_dir($path) && file_exists($path . '/' . $this->getComposerFileName())) {
             $json = json_decode(
                 file_get_contents($path . '/' . $this->getComposerFileName()),
@@ -110,17 +98,10 @@ class DrupalFinder
             if (is_array($json)) {
                 if (isset($json['extra']['installer-paths']) && is_array($json['extra']['installer-paths'])) {
                     foreach ($json['extra']['installer-paths'] as $install_path => $items) {
-                        if (in_array('type:drupal-core', $items) ||
-                            in_array('drupal/core', $items) ||
-                            in_array('drupal/drupal', $items)) {
+                        if (in_array('type:mautic-core', $items) ||
+                            in_array('mautic/core', $items)) {
                             $this->composerRoot = $path;
-                            // @todo: Remove this magic and detect the major version instead.
-                            if (($install_path == 'core') || ((isset($json['name'])) && ($json['name'] == 'drupal/drupal'))) {
-                                $install_path = '';
-                            } elseif (substr($install_path, -5) == '/core') {
-                                $install_path = substr($install_path, 0, -5);
-                            }
-                            $this->drupalRoot = rtrim($path . '/' . $install_path, '/');
+                            $this->mauticRoot = rtrim($path . '/' . $install_path, '/');
                             $this->vendorDir = $this->composerRoot . '/vendor';
                         }
                     }
@@ -137,15 +118,15 @@ class DrupalFinder
             }
         }
 
-        return $this->drupalRoot && $this->composerRoot && $this->vendorDir;
+        return $this->mauticRoot && $this->composerRoot && $this->vendorDir;
     }
 
     /**
      * @return string
      */
-    public function getDrupalRoot()
+    public function getMauticRoot()
     {
-        return $this->drupalRoot;
+        return $this->mauticRoot;
     }
 
     /**
